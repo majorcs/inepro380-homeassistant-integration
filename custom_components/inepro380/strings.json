@@ -1,0 +1,36 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to inepro PRO380",
+        "description": "Configure a Modbus TCP connection to an inepro PRO380 meter.",
+        "data": {
+          "host": "Host",
+          "port": "Port",
+          "slave_id": "Slave ID",
+          "scan_interval": "Polling interval (seconds)",
+          "name": "Name"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to the meter.",
+      "unknown": "Unexpected error."
+    },
+    "abort": {
+      "already_configured": "This meter is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Configure polling",
+        "description": "Set how often the device is queried.",
+        "data": {
+          "scan_interval": "Polling interval (seconds)"
+        }
+      }
+    },
+    "error": {}
+  }
+}

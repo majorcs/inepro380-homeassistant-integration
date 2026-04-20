@@ -1,0 +1,20 @@
+{
+  "domain": "inepro380",
+  "name": "inepro PRO380",
+  "codeowners": [
+    "@majorcs"
+  ],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/majorcs/inepro380-homeassistant-integration",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/majorcs/inepro380-homeassistant-integration/issues",
+  "loggers": [
+    "pymodbus"
+  ],
+  "requirements": [
+    "pymodbus==3.11.3"
+  ],
+  "version": "2026.04.20.1"
+}

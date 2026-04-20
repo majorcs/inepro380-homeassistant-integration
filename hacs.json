@@ -1,0 +1,9 @@
+{
+  "name": "inepro PRO380",
+  "content_in_root": false,
+  "domains": [
+    "inepro380"
+  ],
+  "homeassistant": "2025.1.0",
+  "render_readme": true
+}
