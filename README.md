@@ -29,6 +29,10 @@ The initial implementation was validated against `192.168.88.49:502`.
 
 HACS can install this integration directly from the GitHub repository archive.
 
+Home Assistant 2026.3.1 is supported. The integration intentionally allows the
+Home Assistant bundled `pymodbus` 3.11.x version instead of pinning one exact
+patch release.
+
 The repository export is configured to include only:
 
 - `README.md`
