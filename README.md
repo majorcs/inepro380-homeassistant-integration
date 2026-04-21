@@ -76,9 +76,14 @@ Example:
 - `2026.04.20.4` = fourth release on 20 April 2026
 - `2026.04.21.1` = first release on 21 April 2026
 
+## Repository policy
+
+- `main` is intended to be protected against direct pushes
+- changes should land on `main` only through pull requests from another branch
+- pull requests targeting `main` must pass both the `hassfest` and `test` GitHub Actions checks before merge
+
 ## Planned follow-up work
 
 - Modbus RTU / serial transport
 - richer diagnostics and enum decoding
 - reconfigure flow for transport settings beyond initial setup
-- CI validation against Home Assistant custom component tooling
