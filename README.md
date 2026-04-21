@@ -58,6 +58,7 @@ Latest published hotfix examples:
 - `2026.04.20.4` = archive export fix to ensure `custom_components/inepro380/brand/` is included in installed copies
 - `2026.04.21.1` = configuration UI update with boxed integer slave ID input and reconfigure support for transport settings
 - `2026.04.21.2` = entity names aligned with the original English PRO380 register manual
+- `2026.04.21.3` = richer interpreted diagnostics for documented fields without changing raw register output
 
 ## Versioning
 

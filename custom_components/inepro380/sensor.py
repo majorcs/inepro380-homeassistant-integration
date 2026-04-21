@@ -38,7 +38,12 @@ class IneproSensor(IneproCoordinatorEntity, SensorEntity):
 
     @property
     def extra_state_attributes(self) -> dict[str, str | int]:
-        return {
+        attributes: dict[str, str | int | dict[str, object]] = {
             "register_address": f"0x{self.entity_description.address:04X}",
             "register_count": self.entity_description.register_count,
         }
+        if self.coordinator.data is not None:
+            interpreted = self.coordinator.data.interpreted.get(self.entity_description.key)
+            if interpreted:
+                attributes["interpreted"] = interpreted
+        return attributes

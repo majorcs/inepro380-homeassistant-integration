@@ -11,6 +11,7 @@ from .client import IneproConnectionError, IneproModbusTcpClient
 from .const import DOMAIN, REGISTER_BLOCKS
 from .decoder import parse_identity_metadata
 from .descriptions import SENSOR_DESCRIPTIONS
+from .interpretation import interpret_device_details
 from .models import IneproSnapshot
 
 _LOGGER = logging.getLogger(__name__)
@@ -65,7 +66,13 @@ class IneproDataUpdateCoordinator(DataUpdateCoordinator[IneproSnapshot]):
             values[description.key] = description.decoder(registers)
 
         metadata = parse_identity_metadata(raw_blocks[0x4000])
-        return IneproSnapshot(values=values, raw_blocks=raw_blocks, metadata=metadata)
+        interpreted = interpret_device_details(values)
+        return IneproSnapshot(
+            values=values,
+            raw_blocks=raw_blocks,
+            metadata=metadata,
+            interpreted=interpreted,
+        )
 
     @property
     def serial_number(self) -> str | None:

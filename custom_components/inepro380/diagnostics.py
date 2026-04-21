@@ -17,6 +17,7 @@ async def async_get_config_entry_diagnostics(hass, config_entry):
     payload = {
         "entry": dict(config_entry.data),
         "metadata": asdict(coordinator.data.metadata) if coordinator.data else None,
+        "interpreted": dict(coordinator.data.interpreted) if coordinator.data else None,
         "values": dict(coordinator.data.values) if coordinator.data else None,
         "raw_blocks": (
             {

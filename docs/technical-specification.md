@@ -173,6 +173,8 @@ Current sensor families:
 - Platform: `sensor`
 - Entity category: `diagnostic`
 - Default enabled: no
+- Support diagnostics payload should preserve raw values and raw register blocks while adding an `interpreted` section for documented enum-like and configuration-like fields.
+- Existing diagnostic sensor entities may expose additive interpreted attributes for stable, documented meanings.
 
 ## Device specification
 

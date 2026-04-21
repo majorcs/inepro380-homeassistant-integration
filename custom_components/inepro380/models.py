@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any
 
 
@@ -34,3 +34,4 @@ class IneproSnapshot:
     values: dict[str, Any]
     raw_blocks: dict[int, list[int]]
     metadata: IneproDeviceMetadata
+    interpreted: dict[str, dict[str, Any]] = field(default_factory=dict)
