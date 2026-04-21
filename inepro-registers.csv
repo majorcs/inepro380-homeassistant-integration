@@ -1,0 +1,119 @@
+A3 .2 Modbus r                                                                      
+Reg. cím      Tartalom                     Funkció kód    Bejegyzés hossz  Egység   Adat típus             
+4000          Sorozatszám                  03             2                -        HEX                    
+4002          Mérőeszköz kód               03             1                -        HEX                    
+4003          Modbus ID (cím)              03             1                -        Jelölt                 
+4004          Baud rate                    03             1                -        Jelölt                 
+4005          Protokol verzió              03             2                -        Lebegő ABCD            
+4007          Szoftver verzió              03             2                -        Lebegő ABCD            
+4009          Hardver verzió               03             2                -        Lebegő ABCD            
+400B          Mérőeszköz erősítők          03             1                A        Jelölt                 
+400C          Áramváltó áttétel            03             1                A        HEX                    
+400D          S0 kimeneti arány            03             2                imp/kWh  Lebegő ABCD            
+400F          Kombinációs kód              03             1                -        Jelölt                 
+4010          LCD ciklusidő                03             1                sec.     HEX                    
+4011          Paritás beállítás            03             1                -        Jelölt                 
+4012          Áram irány                   03             1                -        ASCII                  
+4013          L2 áram irány                03             1                -        ASCII                  
+4014          L3 áram irány                03             1                -        ASCII                  
+4015          Hiba kód*                    03             1                -        Signed                 
+4016          Lekapcsolás számláló         03             1                -        Jelölt                 
+4017          Jelenlegi térnegyed          03             1                -        Jelölt                 
+4018          L1 térnegyed                 03             1                -        Jelölt                 
+4019          L2 térnegyed                 03             1                -        Jelölt                 
+401A          L3 térnegyed                 03             1                -        Jelölt                 
+401B          Ellenörző összeg             03             2                -        HEX                    
+401D          Aktív státusz szó            03             2                -        HEX                    
+401F          Áramváltó mód                03             1                A        Jelölt                 
+Reg. cím      Tartalom                     Function code  Register length  Unit     Data type              
+5000          Feszültség*                  03             2                V        LebegőABCD             
+5002          L1 Feszültség                03             2                V        Lebegő ABCD            
+5004          L2 Feszültség                03             2                V        Lebegő ABCD            
+5006          L3 Feszültség                03             2                V        Lebegő ABCD            
+5008          Rács frekvencia              03             2                Hz       Lebegő ABCD            
+500A          Áram*                        03             2                A        LebegőABCD             
+500C          L1 Áram                      03             2                A        Lebegő ABCD            
+500E          L2 Áram                      03             2                A        Lebegő ABCD            
+5010          L3 Áram                      03             2                A        Lebegő ABCD            
+5012          Összes határos energia       03             2                kW       Lebegő ABCD            
+5014          L1 Hatásos energia           03             2                kW       Lebegő ABCD            
+5016          L2 Hatásos energia           03             2                kW       Lebegő ABCD            
+5018          L3 Hatásos energia           03             2                kW       Lebegő ABCD            
+501A          Összes meddő energia         03             2                kvar     Lebegő ABCD            
+501C          L1 Meddő energia             03             2                kvar     Lebegő ABCD            
+501E          L2 Meddő energia             03             2                kvar     Lebegő ABCD            
+5020          L3 Meddő energia             03             2                kvar     Lebegő ABCD            
+5022          Összes látszólagos teljesítmé03             2                kVA      Lebegő ABCD            
+5024          L1 Látszólagos teljesítmény  03             2                kVA      Lebegő ABCD            
+5026          L2 Látszólagos teljesítmény  03             2                kVA      Lebegő ABCD            
+5028          L3 Látszólagos teljesítmény  03             2                kVA      Lebegő ABCD            
+502A          Teljesítménytényező          03             2                -        Lebegő ABCD            
+502C          L1 Teljesítménytényező       03             2                -        Lebegő ABCD            
+502E          L2 Teljesítménytényező       03             2                -        Lebegő ABCD            
+5030          L3 Teljesítménytényező       03             2                -        Lebegő ABCD            
+Reg. cím      Tartalom                     Function code  Register length  Unit     Data type              
+6000          Összes határos energia       03             2                kWh      Lebegő ABCD            
+6002          T1 Összes határos energia    03             2                kWh      Lebegő ABCD            
+6004          T2 Összes határos energia    03             2                kWh      Lebegő ABCD            
+6006          L1 Összes határos energia    03             2                kWh      Lebegő ABCD            
+6008          L2 Összes határos energia    03             2                kWh      Lebegő ABCD            
+600A          L3 Összes határos energia    03             2                kWh      Lebegő ABCD            
+600C          Import hatásos energia       03             2                kWh      Lebegő ABCD            
+600E          T1 Import hatásos energia    03             2                kWh      Lebegő ABCD            
+6010          T2 Import hatásos energia    03             2                kWh      Lebegő ABCD            
+6012          L1 Import hatásos energia    03             2                kWh      Lebegő ABCD            
+6014          L2 Import hatásos energia    03             2                kWh      Lebegő ABCD            
+6016          L3 Import hatásos energia    03             2                kWh      Lebegő ABCD            
+6018          Export hatásos energia       03             2                kWh      Lebegő ABCD            
+601A          T1 Export hatásos energia    03             2                kWh      Lebegő ABCD            
+601C          T2 Export hatásos energia    03             2                kWh      Lebegő ABCD            
+601E          L1 Export hatásos energia    03             2                kWh      Lebegő ABCD            
+6020          L2 Export hatásos energia    03             2                kWh      Lebegő ABCD            
+6022          L3 Export hatásos energia    03             2                kWh      Lebegő ABCD            
+6024          Összes meddő energia         03             2                kvarh    Lebegő ABCD            
+6026          T1 Összes meddő energia      03             2                kvarh    Lebegő ABCD            
+6028          T2 Összes meddő energia      03             2                kvarh    Lebegő ABCD            
+602A          L1 Összes meddő energia      03             2                kvarh    Lebegő ABCD            
+602C          L2 Összes meddő energia      03             2                kvarh    Lebegő ABCD            
+602E          L3 Összes meddő energia      03             2                kvarh    Lebegő ABCD            
+6030          Import meddő energia         03             2                kvarh    Lebegő ABCD            
+6032          T1 Import meddő energia      03             2                kvarh    Lebegő ABCD            
+6034          T2 Import meddő energia      03             2                kvarh    Lebegő ABCD            
+6036          L1 Import meddő energia      03             2                kvarh    Lebegő ABCD            
+6038          L2 Import meddő energia      03             2                kvarh    Lebegő ABCD            
+603A          L3 Import meddő energia      03             2                kvarh    Lebegő ABCD            
+603C          Export meddő energia         03             2                kvarh    Lebegő ABCD            
+603E          T1 Export meddő energia      03             2                kvarh    Lebegő ABCD            
+6040          T2 Export meddő energia      03             2                kvarh    Lebegő ABCD            
+6042          L1 Export meddő energia      03             2                kvarh    Lebegő ABCD            
+6044          L2 Export meddő energia      03             2                kvarh    Lebegő ABCD            
+6046          L3 Export meddő energia      03             2                kvarh    Lebegő ABCD            
+6048          Tarifa                       03             1                -        Jelölt                 
+6049          Nullázható napi számláló     03             2                kWh      Lebegő ABCD            
+                                                                                    
+                                                                                    
+                                                                                    
+Írás                                                                                
+Reg. cím      Tartalom                     Function code  Register length  Unit     Data type              
+4003          Modbus ID (cím)              06             1                -        Jelölt                 
+Parancs:       01 06 4003 000A (új ID: 10)                01~247 - 01 alapé         ett - 00               
+                                                          közvetített               
+4004          Baud rate                    06             1                -        Jelölt                 
+Parancs:      01 06 4004 25 80 (új Baudrate               300 - 600 - 1200          - 9600                 
+400D          S0 kiemeneti arány           10             2                 imp/kWh Lebegő ABCD            
+Parancs:      01 10 400D 0002 04 41 20 00 0               10.000 - 2.000 -          
+                                                               - 0,01               
+400F          Kombinációs kód              06             1                -        Jelölt                 
+Parancs:      01 06 400F 000A (új kód: 10 F               01, 04, 05, 06, 0         
+4010          LCD ciklus idő               06             1                másodpercHEX                    
+Parancs:      01 06 4010 0025 (új idő: 25 s                           01~30         
+4011          Paritás beállítás            06             1                -        Jelölt                 
+Parancs:      01 06 4011 0002 (új paritás:                01: even - 02: no         
+4016          Lekapcsolás számláló         06             1                -        Jelölt                 
+Parancs:             01 06 4016 0000                        Nullázás 0-ra           
+6048          Tarifa                       06             1                -        Jelölt                 
+                                                          01: T1 - 02: T2 -         
+Parancs:      01 06 6048 0002 (új tarifa: 2                                         
+                                                          12: T2 nem mentet         
+6049          Nullázható napi számláló     10             1                kWh      Lebegő ABCD            
+Parancs:          01 10 6049 0002 04 00    00 0000          Nullázás 0-ra           

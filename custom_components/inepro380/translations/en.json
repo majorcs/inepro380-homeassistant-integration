@@ -11,6 +11,15 @@
           "scan_interval": "Polling interval (seconds)",
           "name": "Name"
         }
+      },
+      "reconfigure": {
+        "title": "Reconfigure inepro PRO380",
+        "description": "Update the Modbus TCP connection settings for this inepro PRO380 meter.",
+        "data": {
+          "host": "Host",
+          "port": "Port",
+          "slave_id": "Slave ID"
+        }
       }
     },
     "error": {
@@ -18,7 +27,8 @@
       "unknown": "Unexpected error."
     },
     "abort": {
-      "already_configured": "This meter is already configured."
+      "already_configured": "This meter is already configured.",
+      "different_device": "The updated connection settings point to a different meter."
     }
   },
   "options": {

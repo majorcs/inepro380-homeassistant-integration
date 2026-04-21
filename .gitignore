@@ -1,0 +1,9 @@
+.venv/
+.venv-manual-ha/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.coverage
+.manual-homeassistant/
+dist/
+*.pyc

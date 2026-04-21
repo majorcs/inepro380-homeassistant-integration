@@ -1,0 +1,25 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Prepare manual Home Assistant test",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/python",
+      "args": [
+        "${workspaceFolder}/scripts/run_manual_homeassistant.py",
+        "--prepare-only"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Run manual Home Assistant test",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/python",
+      "args": [
+        "${workspaceFolder}/scripts/run_manual_homeassistant.py"
+      ],
+      "isBackground": true,
+      "problemMatcher": []
+    }
+  ]
+}

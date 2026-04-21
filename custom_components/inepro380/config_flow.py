@@ -10,6 +10,7 @@ import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.const import CONF_HOST, CONF_NAME, CONF_PORT
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import selector
 
 from .client import IneproConnectionError, IneproModbusTcpClient
 from .const import (
@@ -20,12 +21,37 @@ from .const import (
     DEFAULT_SCAN_INTERVAL_SECONDS,
     DEFAULT_SLAVE_ID,
     DOMAIN,
+    MAX_SLAVE_ID,
     MIN_SCAN_INTERVAL_SECONDS,
+    MIN_SLAVE_ID,
     PROTOCOL_TCP,
 )
 from .models import IneproConnectionParameters, IneproDeviceMetadata
 
 _LOGGER = logging.getLogger(__name__)
+
+
+def _build_tcp_connection_schema() -> dict[vol.Marker, object]:
+    """Build the schema fields for TCP connection settings."""
+
+    return {
+        vol.Required(CONF_HOST): str,
+        vol.Required(CONF_PORT, default=DEFAULT_PORT): vol.All(
+            vol.Coerce(int), vol.Range(min=1, max=65535)
+        ),
+        vol.Required(CONF_SLAVE_ID, default=DEFAULT_SLAVE_ID): vol.All(
+            selector.NumberSelector(
+                selector.NumberSelectorConfig(
+                    min=MIN_SLAVE_ID,
+                    max=MAX_SLAVE_ID,
+                    step=1,
+                    mode=selector.NumberSelectorMode.BOX,
+                )
+            ),
+            vol.Coerce(int),
+            vol.Range(min=MIN_SLAVE_ID, max=MAX_SLAVE_ID),
+        ),
+    }
 
 
 async def async_validate_tcp_input(
@@ -85,13 +111,7 @@ class IneproConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             step_id="user",
             data_schema=vol.Schema(
                 {
-                    vol.Required(CONF_HOST): str,
-                    vol.Required(CONF_PORT, default=DEFAULT_PORT): vol.All(
-                        vol.Coerce(int), vol.Range(min=1, max=65535)
-                    ),
-                    vol.Required(CONF_SLAVE_ID, default=DEFAULT_SLAVE_ID): vol.All(
-                        vol.Coerce(int), vol.Range(min=1, max=247)
-                    ),
+                    **_build_tcp_connection_schema(),
                     vol.Required(
                         CONF_SCAN_INTERVAL,
                         default=DEFAULT_SCAN_INTERVAL_SECONDS,
@@ -100,6 +120,49 @@ class IneproConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     ),
                     vol.Optional(CONF_NAME): str,
                 }
+            ),
+            errors=errors,
+        )
+
+    async def async_step_reconfigure(
+        self, user_input: dict[str, Any] | None = None
+    ):
+        """Handle reconfiguration of TCP connection settings."""
+
+        errors: dict[str, str] = {}
+        entry = self._get_reconfigure_entry()
+
+        if user_input is not None:
+            try:
+                metadata = await async_validate_tcp_input(self.hass, user_input)
+            except IneproConnectionError:
+                errors["base"] = "cannot_connect"
+            except Exception:  # noqa: BLE001
+                _LOGGER.exception("Unexpected error while reconfiguring PRO380")
+                errors["base"] = "unknown"
+            else:
+                await self.async_set_unique_id(metadata.serial_number)
+                self._abort_if_unique_id_mismatch(reason="different_device")
+                return self.async_update_reload_and_abort(
+                    entry,
+                    data_updates={
+                        CONF_PROTOCOL: PROTOCOL_TCP,
+                        CONF_HOST: user_input[CONF_HOST],
+                        CONF_PORT: user_input[CONF_PORT],
+                        CONF_SLAVE_ID: user_input[CONF_SLAVE_ID],
+                    },
+                )
+
+        suggested_values = user_input or {
+            CONF_HOST: entry.data.get(CONF_HOST, ""),
+            CONF_PORT: entry.data.get(CONF_PORT, DEFAULT_PORT),
+            CONF_SLAVE_ID: entry.data.get(CONF_SLAVE_ID, DEFAULT_SLAVE_ID),
+        }
+        return self.async_show_form(
+            step_id="reconfigure",
+            data_schema=self.add_suggested_values_to_schema(
+                vol.Schema(_build_tcp_connection_schema()),
+                suggested_values,
             ),
             errors=errors,
         )

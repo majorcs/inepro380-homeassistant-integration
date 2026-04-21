@@ -40,15 +40,23 @@ The repository export is configured to include only:
 
 Development, test, documentation, and prompt files are excluded from exported archives.
 
+Important branding note:
+
+- Home Assistant local brand assets must live in `custom_components/inepro380/brand/`
+- the repository root `brand/` directory is excluded from exported archives
+- the integration-local `custom_components/inepro380/brand/` directory is included in exported archives and is the one used by Home Assistant
+
 ## Release package
 
 No custom zip asset is required for HACS.
 
 The release tag should match the integration version from `manifest.json`.
 
-For the first release, use:
+Latest published hotfix examples:
 
-- `2026.04.20.1`
+- `2026.04.20.3` = brand asset set for HACS and Home Assistant UI
+- `2026.04.20.4` = archive export fix to ensure `custom_components/inepro380/brand/` is included in installed copies
+- `2026.04.21.1` = configuration UI update with boxed integer slave ID input and reconfigure support for transport settings
 
 ## Versioning
 
@@ -63,10 +71,12 @@ Example:
 
 - `2026.04.20.1` = first release on 20 April 2026
 - `2026.04.20.2` = second release on 20 April 2026
+- `2026.04.20.4` = fourth release on 20 April 2026
+- `2026.04.21.1` = first release on 21 April 2026
 
 ## Planned follow-up work
 
 - Modbus RTU / serial transport
 - richer diagnostics and enum decoding
-- options flow for scan interval and transport settings
+- reconfigure flow for transport settings beyond initial setup
 - CI validation against Home Assistant custom component tooling
