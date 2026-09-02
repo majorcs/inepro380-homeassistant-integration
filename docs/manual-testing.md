@@ -7,8 +7,9 @@ This repository includes a local launcher for manual end-to-end testing of the `
 The launcher script:
 
 - creates a dedicated virtual environment in `.venv-manual-ha`
-- installs `homeassistant==2026.4.3`
-- installs `pymodbus>=3.11.2,<3.12`
+- installs `homeassistant==2026.8.3`
+- installs the integration's `pymodbus` requirement using Home Assistant's
+  package constraints
 - creates a local Home Assistant config directory in `.manual-homeassistant`
 - links the repository `custom_components` directory into that config
 - pre-seeds a config entry for:
@@ -54,6 +55,7 @@ Two tasks are available in [.vscode/tasks.json](../.vscode/tasks.json):
 ## Notes
 
 - The manual Home Assistant config is isolated from the repository development venv.
-- The manual launcher keeps the `pymodbus` version aligned with the integration manifest and Home Assistant 2026.3+ compatibility.
+- The manual launcher reads the runtime requirement from the integration
+  manifest and resolves it through Home Assistant's own package constraints.
 - The pre-seeded entry uses the validated serial number `22091039` as the unique ID.
 - On first startup, Home Assistant may still require normal onboarding in the browser.

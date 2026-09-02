@@ -38,10 +38,39 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r requirements_test.txt
-          python -m pip install "pymodbus>=3.11.2,<3.12"
+          PYMODBUS_REQUIREMENT=$(python -c "import json; print(json.load(open('custom_components/inepro380/manifest.json'))['requirements'][0])")
+          python -m pip install "$PYMODBUS_REQUIREMENT"
 
       - name: Check syntax
         run: python -m compileall custom_components tests
 
       - name: Run tests
         run: pytest
+
+  pymodbus-compatibility:
+    name: Pymodbus compatibility (${{ matrix.version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - "3.11.2"
+          - "3.13.1"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements_test.txt
+          python -m pip install "pymodbus==${{ matrix.version }}"
+
+      - name: Run compatibility tests
+        run: pytest tests/components/inepro380/test_client.py tests/components/inepro380/test_manifest.py

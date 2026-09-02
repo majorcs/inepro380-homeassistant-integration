@@ -17,13 +17,13 @@ MANUAL_VENV = REPO_ROOT / ".venv-manual-ha"
 MANUAL_CONFIG_DIR = REPO_ROOT / ".manual-homeassistant"
 CUSTOM_COMPONENTS_SOURCE = REPO_ROOT / "custom_components"
 CUSTOM_COMPONENTS_TARGET = MANUAL_CONFIG_DIR / "custom_components"
+INTEGRATION_MANIFEST_PATH = CUSTOM_COMPONENTS_SOURCE / "inepro380" / "manifest.json"
 STORAGE_DIR = MANUAL_CONFIG_DIR / ".storage"
 CONFIG_ENTRY_PATH = STORAGE_DIR / "core.config_entries"
 CONFIGURATION_YAML_PATH = MANUAL_CONFIG_DIR / "configuration.yaml"
 SECRETS_YAML_PATH = MANUAL_CONFIG_DIR / "secrets.yaml"
 
-HOME_ASSISTANT_VERSION = "2026.4.3"
-PYMODBUS_REQUIREMENT = "pymodbus>=3.11.2,<3.12"
+HOME_ASSISTANT_VERSION = "2026.8.3"
 MANUAL_ENTRY_ID = "manual_inepro380_tcp"
 MANUAL_UNIQUE_ID = "22091039"
 DEFAULT_HOST = "192.168.88.49"
@@ -49,6 +49,28 @@ def run_command(command: list[str]) -> None:
     subprocess.run(command, check=True)
 
 
+def get_runtime_requirements() -> list[str]:
+    manifest = json.loads(INTEGRATION_MANIFEST_PATH.read_text(encoding="utf-8"))
+    return manifest.get("requirements", [])
+
+
+def get_homeassistant_constraints(python_path: Path) -> str:
+    result = subprocess.run(
+        [
+            str(python_path),
+            "-c",
+            (
+                "from pathlib import Path; import homeassistant; "
+                "print(Path(homeassistant.__file__).with_name('package_constraints.txt'))"
+            ),
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return result.stdout.strip()
+
+
 def ensure_manual_venv() -> Path:
     python_path = MANUAL_VENV / "bin" / "python"
     if not python_path.exists():
@@ -63,9 +85,21 @@ def ensure_manual_venv() -> Path:
             "pip",
             "install",
             f"homeassistant=={HOME_ASSISTANT_VERSION}",
-            PYMODBUS_REQUIREMENT,
         ]
     )
+    runtime_requirements = get_runtime_requirements()
+    if runtime_requirements:
+        run_command(
+            [
+                str(python_path),
+                "-m",
+                "pip",
+                "install",
+                "--constraint",
+                get_homeassistant_constraints(python_path),
+                *runtime_requirements,
+            ]
+        )
     return python_path
 
 
