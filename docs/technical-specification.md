@@ -234,7 +234,7 @@ Archive/export behavior:
 ### Python dependency
 
 Runtime dependency:
-- `pymodbus>=3.11.2,<3.12`
+- `pymodbus>=3.11.2,<4`
 
 Test dependencies tracked in `requirements_test.txt`:
 - `pytest`

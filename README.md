@@ -29,9 +29,9 @@ The initial implementation was validated against `192.168.88.49:502`.
 
 HACS can install this integration directly from the GitHub repository archive.
 
-Home Assistant 2026.3.1 is supported. The integration intentionally allows the
-Home Assistant bundled `pymodbus` 3.11.x version instead of pinning one exact
-patch release.
+Home Assistant 2026.8 is supported. The integration accepts compatible
+`pymodbus` 3.x releases from 3.11.2 onward, allowing Home Assistant to select
+its centrally managed version without a conflicting custom-integration pin.
 
 The repository export is configured to include only:
 
@@ -59,6 +59,7 @@ Latest published hotfix examples:
 - `2026.04.21.1` = configuration UI update with boxed integer slave ID input and reconfigure support for transport settings
 - `2026.04.21.2` = entity names aligned with the original English PRO380 register manual
 - `2026.04.21.3` = richer interpreted diagnostics for documented fields without changing raw register output
+- `2026.09.02.1` = Home Assistant 2026.8 compatibility through a non-conflicting `pymodbus` 3.x requirement
 
 ## Versioning
 
